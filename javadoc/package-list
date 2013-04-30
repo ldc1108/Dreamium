@@ -1,0 +1,17 @@
+ZachsCrappyTogglDay
+com.std.controller
+com.std.controller.dialog
+com.std.controller.listener
+com.std.model
+com.std.model.appointment
+com.std.model.pattern
+com.std.util
+com.std.util.range
+com.std.util.range.rangeTests
+com.std.view
+com.std.view.block
+com.std.view.panel
+test
+test.apptTests
+test.patternTests
+test.rangeTests
