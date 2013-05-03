@@ -39,7 +39,7 @@ import com.std.view.CalendarView;
  * @author xxx
  *
  */
-public class CalendarController implements Observer {
+public class CalendarController  {
 
 	/**
 	 * The Calendar model is the mechanism to do all the logical operations of the calendar (add/remove/modify appointments)
@@ -50,28 +50,6 @@ public class CalendarController implements Observer {
 	 * The calendar view is the highest level of representation for the UI
 	 */
 	public CalendarView theView;
-	
-	/**
-	 *  Called when there is a change in the model, this method will
-	 *  invoke the update method on the view and pass it the new
-	 *  set of ref appointments as well as the selected date and
-	 *  selected appointment
-	 *  
-	 *  @param o is the observable object that has changed
-	 *  @param param is the parameter sent by the notifyObservers methods 
-	 */
-	public void update(Observable o, Object param) {
-		boolean setChanged = 
-			param != null && 
-			(	param instanceof AppointmentTemplate ||
-				param instanceof RefAppointment);
-		
-		theView.update(
-			theModel.getAppointmentSet(), 
-			theModel.getCurrentDate(), 
-			theModel.getCurrentAppointment(),
-			theModel.getFile());
-	}
 	
 	/**
 	 * This method instantiates all the necessary listeners, giving them
@@ -298,7 +276,7 @@ public class CalendarController implements Observer {
 		
 		// add this CalendarController as an observer to the 
 		// model, so the view can be updated when the model changes
-		theModel.addObserver(this);
+		theModel.addObserver(theView);
 		
 		// instantiate the listeners
 		instantiateListeners();

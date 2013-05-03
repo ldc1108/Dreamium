@@ -1,5 +1,6 @@
 package com.std.view;
 
+import com.std.model.CalendarModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -30,6 +31,8 @@ import com.std.view.panel.AppointmentPanel;
 import com.std.view.panel.DailyPanel;
 import com.std.view.panel.MonthlyPanel;
 import com.std.view.panel.WeeklyPanel;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * This is the main entry point for the view, it updates the views when it is called
@@ -39,7 +42,7 @@ import com.std.view.panel.WeeklyPanel;
  *
  */
 
-public class CalendarView extends JFrame {	
+public class CalendarView extends JFrame implements Observer {	
 	private final static SimpleDateFormat FORMAT = new SimpleDateFormat("MMMM, yyyy");
 	
 	/**
@@ -276,7 +279,9 @@ public class CalendarView extends JFrame {
 	 */
 	
 	public void update(Set<RefAppointment> refSet, Date selectedDate, RefAppointment selectedAppointment, File currentFile) {
-		displayDate.setText(FORMAT.format(selectedDate));
+	
+            
+                displayDate.setText(FORMAT.format(selectedDate));
 		
 		if(refSet != null) {
 			Set<RefAppointment> subSet;
@@ -299,6 +304,26 @@ public class CalendarView extends JFrame {
 		setTitle((currentFile == null ? "Untitled Calendar" : currentFile.getName()) + " - DCal");
 		
 		this.validate();
+	}
+        
+        /**
+	 *  Called when there is a change in the model, this method will
+	 *  invoke the update method on the view and pass it the new
+	 *  set of ref appointments as well as the selected date and
+	 *  selected appointment
+	 *  
+	 *  @param o is the observable object that has changed
+	 *  @param param is the parameter sent by the notifyObservers methods 
+	 */
+	public void update(Observable o, Object param) {
+		
+            CalendarModel theModel = (CalendarModel) o;
+		
+            update(
+                    theModel.getAppointmentSet(), 
+                    theModel.getCurrentDate(), 
+                    theModel.getCurrentAppointment(),
+                    theModel.getFile());
 	}
 	
 	/**
