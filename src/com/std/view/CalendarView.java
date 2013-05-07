@@ -90,12 +90,15 @@ public class CalendarView extends JFrame implements Observer {
 	public TABBED_STATE getTabbedState() {
 		TABBED_STATE ret = null;
 		Component c = tabs.getSelectedComponent();
-		if(c == monthlyView)
-			ret = TABBED_STATE.MONTHLY;
-		else if(c == weeklyView)
-			ret = TABBED_STATE.WEEKLY;
-		else if(c == dailyView)
-			ret = TABBED_STATE.DAILY;
+		if(c == monthlyView) {
+                ret = TABBED_STATE.MONTHLY;
+            }
+		else if(c == weeklyView) {
+                ret = TABBED_STATE.WEEKLY;
+            }
+		else if(c == dailyView) {
+                ret = TABBED_STATE.DAILY;
+            }
 		return ret;
 	}
 	
@@ -357,6 +360,10 @@ public class CalendarView extends JFrame implements Observer {
                 _monthlyBuilder = new MonthlyPanelBuilder(date);
                 _dailyBuilder = new DailyPanelBuilder(date);
                 _weeklyBuilder = new WeeklyPanelBuilder(date);
+                
+                _monthlyBuilder.buildPart(date);
+                _dailyBuilder.buildPart(date);
+                _weeklyBuilder.buildPart(date);
                 
                 monthlyView = (MonthlyPanel) _monthlyBuilder.getResult();
                 weeklyView = (WeeklyPanel) _weeklyBuilder.getResult();

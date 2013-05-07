@@ -52,26 +52,21 @@ public class DailyPanel  extends CalendarPanel  {
 	 * @param date is the currentlySelectedDate
 	 */
 	
-	public DailyPanel(Date date) {
+	public DailyPanel() {
 		super();
 
 		_content.setLayout(new GridLayout(0, 1));
-                
-                setUp();
-                
-		update(new HashSet<RefAppointment>(), date, null);
 	}
         
-        private void setUp() { 
+    @Override
+        public void buildPanel(Date d) { 
             WeeklyDayBlock block = new WeeklyDayBlock(_calendar.getTime());
 		
-            _blocks.add(block);
-
-            _content.add(block);
+            addBlock(block);
+            
             block.setSelected(true);
             block.setEnabled(false);
             
-            _calendar.add(Calendar.DATE, 1);
         }
 	
 	/**
@@ -82,6 +77,7 @@ public class DailyPanel  extends CalendarPanel  {
 	 * @param selectedAppointment is the currently selected appointment
 	 */
 	
+    @Override
 	public void update(Set<RefAppointment> refSet, Date selectedDate, RefAppointment selectedAppointment) {
 		Calendar curcal = Calendar.getInstance();
 		curcal.setTime(selectedDate);

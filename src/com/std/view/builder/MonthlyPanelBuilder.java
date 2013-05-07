@@ -4,10 +4,12 @@
  */
 package com.std.view.builder;
 
+import com.std.model.appointment.RefAppointment;
 import com.std.view.panel.CalendarPanel;
 import com.std.view.panel.MonthlyPanel;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  *
@@ -22,14 +24,5 @@ public class MonthlyPanelBuilder extends PanelBuilder {
         _currentPanel = _monthlyPanel;
     }
     
-    @Override
-    public CalendarPanel getResult() {
-        return _currentPanel;
-    }
-
-    @Override
-    public void buildPart(Date d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }
