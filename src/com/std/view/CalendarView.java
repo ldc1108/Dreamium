@@ -341,24 +341,15 @@ public class CalendarView extends JFrame implements Observer {
 		this.setJMenuBar(calMenu);
 		
 		Date date = new Date();
-		
 		monthlyView = new MonthlyPanel(date);
 		weeklyView = new WeeklyPanel(date);
 		dailyView = new DailyPanel(date);
 		
 		appointmentView = new AppointmentPanel();
 		
-		displayDate = new JLabel(FORMAT.format(date));
-		displayDate.setHorizontalAlignment(SwingConstants.CENTER);
-		displayDate.setFont(displayDate.getFont().deriveFont(20f));
-		
-		prevButton = new JButton("<");
-		prevButton.setFocusable(false);
-		//prevButton.setPreferredSize(new Dimension(100, 0));
-		
-		nextButton = new JButton(">");
-		nextButton.setFocusable(false);
-		//nextButton.setPreferredSize(new Dimension(100, 0));
+		displayDate = buildDisplayDateLabel();
+		prevButton = buildPrevButton();
+		nextButton = buildNextButton();
 				
 		tabs = new JTabbedPane();
 		
@@ -366,31 +357,7 @@ public class CalendarView extends JFrame implements Observer {
 		tabs.add(weeklyView, "Week View");
 		tabs.add(dailyView, "Day View");
 		
-		
-		JLabel logo = new JLabel(new ImageIcon(ImageIO.read(new File("img/logo.png"))));
-		logo.setBorder(new EmptyBorder(4, 4, 4, 4));
-		logo.setHorizontalAlignment(SwingConstants.RIGHT);
-		
-		JPanel top = new JPanel();
-		top.setOpaque(false);
-		top.setLayout(new BorderLayout());
-		top.add(prevButton, BorderLayout.WEST);
-		top.add(displayDate, BorderLayout.CENTER);
-		top.add(nextButton, BorderLayout.EAST);
-		
-		JPanel centerPanel = new JPanel();
-		centerPanel.setBorder(new EmptyBorder(0, 4, 0, 4));
-		centerPanel.setOpaque(false);
-		centerPanel.setLayout(new BorderLayout());
-		centerPanel.add(tabs, BorderLayout.CENTER);
-		centerPanel.add(top, BorderLayout.NORTH);
-		
-		JPanel contentPane = new JPanel();
-		contentPane.setOpaque(false);
-		contentPane.setLayout(new BorderLayout());
-		contentPane.add(logo, BorderLayout.NORTH);
-		contentPane.add(centerPanel, BorderLayout.CENTER);
-		contentPane.add(appointmentView, BorderLayout.EAST);
+		JPanel contentPane = buildContentPane();
 		
 		setContentPane(contentPane);
 		setTitle("Untitled Calendar - DCal");
@@ -401,4 +368,64 @@ public class CalendarView extends JFrame implements Observer {
 		pack();
 		setMinimumSize(getSize());
 	}
+	
+	private JPanel buildContentPane() throws IOException {
+		JPanel contentPane = new JPanel();
+		contentPane.setOpaque(false);
+		contentPane.setLayout(new BorderLayout());
+		contentPane.add(buildLogo(), BorderLayout.NORTH);
+		contentPane.add(buildCenterPanel(), BorderLayout.CENTER);
+		contentPane.add(appointmentView, BorderLayout.EAST);
+		return contentPane;
+	}
+	
+	private JLabel buildLogo() throws IOException {
+		JLabel logo = new JLabel(new ImageIcon(ImageIO.read(new File("img/logo.png"))));
+		logo.setBorder(new EmptyBorder(4, 4, 4, 4));
+		logo.setHorizontalAlignment(SwingConstants.RIGHT);
+		return logo;
+	}
+	
+	private JLabel buildDisplayDateLabel() {
+		JLabel displayDate = new JLabel(FORMAT.format(new Date()));
+		displayDate.setHorizontalAlignment(SwingConstants.CENTER);
+		displayDate.setFont(displayDate.getFont().deriveFont(20f));
+		return displayDate;
+	}
+	
+	private JPanel buildCenterPanel() {
+		JPanel centerPanel = new JPanel();
+		centerPanel.setBorder(new EmptyBorder(0, 4, 0, 4));
+		centerPanel.setOpaque(false);
+		centerPanel.setLayout(new BorderLayout());
+		centerPanel.add(tabs, BorderLayout.CENTER);
+		centerPanel.add( buildTopPanel(), BorderLayout.NORTH);
+		return centerPanel;
+	}
+	
+	private JPanel buildTopPanel() {
+		JPanel top = new JPanel();
+		top.setOpaque(false);
+		top.setLayout(new BorderLayout());
+		top.add(prevButton, BorderLayout.WEST);
+		top.add(displayDate, BorderLayout.CENTER);
+		top.add(nextButton, BorderLayout.EAST);
+		return top;
+	}
+	
+	private JButton buildNextButton() {
+		return buildButton( ">" );
+	}
+	
+	private JButton buildPrevButton() {
+		return buildButton( "<" );
+	}
+	
+	private JButton buildButton( String text ) {
+		JButton prevButton = new JButton(text);
+		prevButton.setFocusable(false);
+		//prevButton.setPreferredSize(new Dimension(100, 0));
+		return prevButton;
+	}
+	
 }
