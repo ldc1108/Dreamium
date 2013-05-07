@@ -11,7 +11,13 @@ import java.util.Date;
  *
  * @author Isioma
  */
-public interface Builder {
-    CalendarPanel getResult();
-    void buildPart(Date d);
+public class PanelBuilder {
+    CalendarPanel _currentPanel;
+    
+    public CalendarPanel getResult(){
+        return _currentPanel;
+    }
+    public void buildPart(Date d) {
+        
+    }
 }

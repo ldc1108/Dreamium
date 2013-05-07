@@ -5,17 +5,24 @@
 package com.std.view.builder;
 
 import com.std.view.panel.CalendarPanel;
+import com.std.view.panel.WeeklyPanel;
 import java.util.Date;
 
 /**
  *
  * @author Isioma
  */
-public class WeeklyBuilder implements Builder {
-
+public class WeeklyPanelBuilder extends PanelBuilder {
+    
+    public WeeklyPanel _weeklyPanel;
+    
+    public WeeklyPanelBuilder(Date d) {
+        _weeklyPanel = new WeeklyPanel(d);
+        _currentPanel = _weeklyPanel;
+    }
     @Override
     public CalendarPanel getResult() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return _currentPanel;
     }
 
     @Override

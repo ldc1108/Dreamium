@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  *
  * @author Isioma
  */
-public abstract class CalendarPanel extends JPanel  {
+public class CalendarPanel extends JPanel  {
     protected Iterable<DayBlock> blocks;
     
     public void addAppointmentListener(MouseListener al) {

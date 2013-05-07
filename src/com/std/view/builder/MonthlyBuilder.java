@@ -5,17 +5,26 @@
 package com.std.view.builder;
 
 import com.std.view.panel.CalendarPanel;
+import com.std.view.panel.MonthlyPanel;
+import java.io.IOException;
 import java.util.Date;
 
 /**
  *
  * @author Isioma
  */
-public class MonthlyBuilder implements Builder {
+public class MonthlyBuilder extends PanelBuilder {
 
+    private MonthlyPanel _monthlyPanel;
+    
+    public MonthlyBuilder(Date d) throws IOException {
+        _monthlyPanel =new MonthlyPanel(d);
+        _currentPanel = _monthlyPanel;
+    }
+    
     @Override
     public CalendarPanel getResult() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return _currentPanel;
     }
 
     @Override
