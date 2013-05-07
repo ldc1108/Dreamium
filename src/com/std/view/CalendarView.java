@@ -99,7 +99,7 @@ public class CalendarView extends JFrame implements Observer {
 	 */
 	
 	public void addAppointmentSelectionListener(MouseListener mouse) {
-		weeklyView.addAppointmentListeners(mouse);
+		weeklyView.addAppointmentListener(mouse);
 		monthlyView.addAppointmentListener(mouse);
 		dailyView.addAppointmentListener(mouse);
 	}

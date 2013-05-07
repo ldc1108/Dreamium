@@ -27,7 +27,7 @@ import com.std.util.range.DayRange;
  *
  */
 
-public class WeeklyDayBlock extends JToggleButton implements DayBlock {
+public class WeeklyDayBlock extends DayBlock {
 	
 	private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MMM d");
 
@@ -84,14 +84,7 @@ public class WeeklyDayBlock extends JToggleButton implements DayBlock {
 		add(centerScroll, BorderLayout.CENTER);
 	}
 	
-	/**
-	 * This allows the mouseListener for the appointment views to be set
-	 * @param list is the MouseListener to be set
-	 */
 	
-	public void addAppointmentMouseListener(MouseListener list) {
-		appointmentListener = list;
-	}
 	
 	/**
 	 * 

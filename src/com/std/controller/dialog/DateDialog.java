@@ -1,5 +1,6 @@
 package com.std.controller.dialog;
 
+import com.std.util.range.MonthRange;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Frame;
@@ -22,7 +23,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
-import com.std.util.range.GridMonthRange;
 
 /**
  * DateDialog is a utility class of the controller that 
@@ -389,7 +389,7 @@ public class DateDialog extends JDialog {
 			cal.get(Calendar.YEAR));
 		
 		// update the grid blocks
-		GridMonthRange range = new GridMonthRange(date);
+		MonthRange range = new MonthRange(date);
 		Calendar rangeCal = Calendar.getInstance();
 		rangeCal.setTime(range.getStartDate());
 		for(int i = 0; i < buttons.length; i++) {
@@ -410,7 +410,7 @@ public class DateDialog extends JDialog {
 	private void setDate(int index) {
 		
 		// get the grid month
-		GridMonthRange range = new GridMonthRange(date);
+		MonthRange range = new MonthRange(date);
 		
 		// get the new time
 		Calendar calNew = Calendar.getInstance();

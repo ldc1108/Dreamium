@@ -18,7 +18,9 @@ import javax.swing.SwingConstants;
 
 import com.std.model.appointment.RefAppointment;
 import com.std.util.range.WeekRange;
+import com.std.view.block.DayBlock;
 import com.std.view.block.WeeklyDayBlock;
+import java.util.ArrayList;
 
 /**
  * This class represents the week view, it contains all the information needed
@@ -31,14 +33,14 @@ import com.std.view.block.WeeklyDayBlock;
  * 
  */
 
-public class DailyPanel extends JPanel  {
+public class DailyPanel  extends CalendarPanel  {
 	
 	/**
 	 * These are the representaions of all the days in this
 	 * week
 	 */
 	
-	private WeeklyDayBlock block;
+//	private WeeklyDayBlock block;
 	
 	private Hashtable<Integer, JLabel> daysOfWeek;
 	
@@ -79,9 +81,14 @@ public class DailyPanel extends JPanel  {
 		JPanel content = new JPanel();
 		content.setOpaque(false);
 		content.setLayout(new GridLayout(0, 1));
+                
+                blocks = new ArrayList<DayBlock>();
+
+		WeeklyDayBlock block = new WeeklyDayBlock(tmpCal.getTime());
 		
-		block = new WeeklyDayBlock(tmpCal.getTime());
-		content.add(block);
+                ((ArrayList<DayBlock>)blocks).add(block);
+                
+                content.add(block);
 		block.setSelected(true);
 		block.setEnabled(false);
 		tmpCal.add(Calendar.DATE, 1);
@@ -109,7 +116,7 @@ public class DailyPanel extends JPanel  {
 		for(int key : daysOfWeek.keySet())
 			daysOfWeek.get(key).setEnabled(curcal.get(Calendar.DAY_OF_WEEK) == key);
 		
-		block.update(refSet, curcal.getTime(), selectedAppointment);
+		((WeeklyDayBlock)((ArrayList<DayBlock>)blocks).get(0)).update(refSet, curcal.getTime(), selectedAppointment);
 	}
 	
 	/**
@@ -118,8 +125,8 @@ public class DailyPanel extends JPanel  {
 	 * @param m is the mouse listener to be added to the appointment views
 	 */
 	
-	public void addAppointmentListener(MouseListener m) {
-		block.addAppointmentMouseListener(m);
-	}
+//	public void addAppointmentListener(MouseListener m) {
+//		block.addAppointmentMouseListener(m);
+//	}
 	
 }

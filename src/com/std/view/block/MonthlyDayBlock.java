@@ -29,7 +29,7 @@ import com.std.util.range.DayRange;
  *
  */
 
-public class MonthlyDayBlock extends JToggleButton implements DayBlock {
+public class MonthlyDayBlock  extends DayBlock {
 	private static final SimpleDateFormat FORMAT = new SimpleDateFormat("d");
 	
 	/**
@@ -47,11 +47,6 @@ public class MonthlyDayBlock extends JToggleButton implements DayBlock {
 	 */
 	private JPanel center;
 	
-	/**
-	 * this is the action listener that will be listening to
-	 * all of the AppointmentReadViews
-	 */
-	private MouseListener appointmentListener;
 	
 	/**
 	 * This is the constructor, it sets up the center panel and the scollPane
@@ -83,15 +78,6 @@ public class MonthlyDayBlock extends JToggleButton implements DayBlock {
 		setMargin(new Insets(1, 1, 1, 1));
 		add(displayDate, BorderLayout.NORTH);
 		add(scroll, BorderLayout.CENTER);		
-	}
-	
-	/**
-	 * This allows the mouseListener for the appointment views to be set
-	 * @param list is the MouseListener to be set
-	 */
-	
-	public void addAppointmentActionListener(MouseListener list) {
-		appointmentListener = list;
 	}
 	
 	public void setEnabled(boolean enabled) {

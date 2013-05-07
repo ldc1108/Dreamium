@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 
 import com.std.model.appointment.RefAppointment;
 import com.std.util.range.WeekRange;
+import com.std.view.block.DayBlock;
 import com.std.view.block.WeeklyDayBlock;
 
 /**
@@ -33,14 +34,14 @@ import com.std.view.block.WeeklyDayBlock;
  * 
  */
 
-public class WeeklyPanel extends JPanel  {
+public class WeeklyPanel extends CalendarPanel  {
 	
 	/**
 	 * These are the representaions of all the days in this
 	 * week
 	 */
 	
-	private List<WeeklyDayBlock> blocks;
+//	private List<WeeklyDayBlock> blocks;
 	
 	/**
 	 * This is the constructor of the class it creates all of 
@@ -54,7 +55,7 @@ public class WeeklyPanel extends JPanel  {
 	public WeeklyPanel(Date date) {
 		super();
 		
-		blocks = new ArrayList<WeeklyDayBlock>();
+		blocks = new ArrayList<DayBlock>();
 		
 		JPanel daysPanel = new JPanel();
 		daysPanel.setOpaque(false);
@@ -82,7 +83,7 @@ public class WeeklyPanel extends JPanel  {
 		tmpCal.setTime(thisWeek.getStartDate());
 		while(tmpCal.getTime().before(thisWeek.getEndDate())) {
 			WeeklyDayBlock currentDay = new WeeklyDayBlock(tmpCal.getTime());
-			blocks.add(currentDay);
+			((ArrayList<DayBlock>)blocks).add(currentDay);
 			content.add(currentDay);
 			group.add(currentDay);
 			tmpCal.add(Calendar.DATE, 1);
@@ -110,11 +111,11 @@ public class WeeklyPanel extends JPanel  {
 		
 		Calendar tmpCal = Calendar.getInstance();
 		WeekRange wRange = new WeekRange(selectedDate);
-		for(int i = 0; i < blocks.size(); i++) { // for each day in the month
+		for(int i = 0; i < ((ArrayList<DayBlock>)blocks).size(); i++) { // for each day in the month
 			tmpCal.setTime(wRange.getStartDate());
 			tmpCal.add(Calendar.DATE, i);
 			
-			WeeklyDayBlock dayBox = blocks.get(i);
+			WeeklyDayBlock dayBox = (WeeklyDayBlock) ((ArrayList<DayBlock>)blocks).get(i);
 			dayBox.update(refSet, tmpCal.getTime(), selectedAppointment);
 			dayBox.setSelected(tmpCal.get(Calendar.DAY_OF_YEAR) == curcal.get(Calendar.DAY_OF_YEAR));
 		}
@@ -126,19 +127,20 @@ public class WeeklyPanel extends JPanel  {
 	 * @param m is the mouse listener to be added to the appointment views
 	 */
 	
-	public void addAppointmentListeners(MouseListener m) {
-		for(WeeklyDayBlock d : blocks)
-			d.addAppointmentMouseListener(m);
-	}
-	
+//	public void addAppointmentListeners(MouseListener m) {
+//		for(WeeklyDayBlock d : blocks)
+//			d.addAppointmentMouseListener(m);
+//	}
+//	
 	/**
 	 * This method sets a day selection method for all the days in this week
 	 * @param ml is the mouse listener to be added
 	 */
 	
 	public void addDaySelectionActionListener(ActionListener ml) {
-		for(WeeklyDayBlock d : blocks)
+		for(DayBlock d : blocks) {
 			d.addActionListener(ml);
+                }
 	}
 	
 }

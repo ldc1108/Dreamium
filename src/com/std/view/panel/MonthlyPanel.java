@@ -20,8 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.std.model.appointment.RefAppointment;
-import com.std.util.range.GridMonthRange;
+import com.std.util.range.MonthRange;
 import com.std.util.range.WeekRange;
+import com.std.view.block.DayBlock;
 import com.std.view.block.MonthlyDayBlock;
 
 
@@ -37,9 +38,9 @@ import com.std.view.block.MonthlyDayBlock;
  * @author xxx
  * 
  */
-public class MonthlyPanel extends JPanel {
+public class MonthlyPanel extends CalendarPanel {
 	
-	private List<MonthlyDayBlock> blocks;
+//	private List<MonthlyDayBlock> blocks;
 
 	/**
 	 * This is the constructor it initializes all the variables needed and then
@@ -48,7 +49,7 @@ public class MonthlyPanel extends JPanel {
 	public MonthlyPanel(Date date) throws IOException {
 		super();
 		
-		blocks = new ArrayList<MonthlyDayBlock>();
+		blocks = new ArrayList<DayBlock>();
 		
 		JPanel daysPanel = new JPanel();
 		daysPanel.setOpaque(false);
@@ -72,12 +73,13 @@ public class MonthlyPanel extends JPanel {
 		
 		ButtonGroup group = new ButtonGroup();
 		
-		GridMonthRange gRange = new GridMonthRange(date);
+		MonthRange gRange = new MonthRange(date);
 		tmpCal.setTime(gRange.getStartDate());
 		while(tmpCal.getTime().before(gRange.getEndDate())) {
 			MonthlyDayBlock dayBox = new MonthlyDayBlock(tmpCal.getTime());
-			blocks.add(dayBox);
-			content.add(dayBox);
+			((ArrayList<DayBlock>) blocks).add(dayBox);
+			
+                        content.add(dayBox);
 			group.add(dayBox);
 			tmpCal.add(Calendar.DATE, 1);
 		}
@@ -95,7 +97,7 @@ public class MonthlyPanel extends JPanel {
 	 * @param dl is the dayListener to set to each MonthlyDayBlock
 	 */
 	public void addDayListener(ActionListener dl) {
-		for(MonthlyDayBlock dayBox : blocks) // for each day in the month
+		for(DayBlock dayBox : blocks) // for each day in the month
 			dayBox.addActionListener(dl);
 	}
 
@@ -104,29 +106,29 @@ public class MonthlyPanel extends JPanel {
 	 * @param al is the appointmentListener to set to each appointment in each
 	 * MonthlyDayBlock
 	 */
-	public void addAppointmentListener(MouseListener al) {
-		for(MonthlyDayBlock dayBox : blocks) // for each day in the month
-			dayBox.addAppointmentActionListener(al);
-	}
+//	public void addAppointmentListener(MouseListener al) {
+//		for(MonthlyDayBlock dayBox : blocks) // for each day in the month
+//			dayBox.addAppointmentActionListener(al);
+//	}
 
-	/**
-	 * 
-	 *update the panel's entire display
-	 *this method is to be called any time the appointment set is changed.
-	 *this method is also to be called any time the view is changed
-	 */
+//	/**
+//	 * 
+//	 *update the panel's entire display
+//	 *this method is to be called any time the appointment set is changed.
+//	 *this method is also to be called any time the view is changed
+//	 */
 	public void update(Set<RefAppointment> as, Date cd, RefAppointment ca) {
 		
 		Calendar curcal = Calendar.getInstance();
 		curcal.setTime(cd);
 		
 		Calendar tmpCal = Calendar.getInstance();
-		GridMonthRange gRange = new GridMonthRange(cd);
-		for(int i = 0; i < blocks.size(); i++) { // for each day in the month
+		MonthRange gRange = new MonthRange(cd);
+		for(int i = 0; i < ((ArrayList<DayBlock>)blocks).size(); i++) { // for each day in the month
 			tmpCal.setTime(gRange.getStartDate());
 			tmpCal.add(Calendar.DATE, i);
 			
-			MonthlyDayBlock dayBox = blocks.get(i);
+			MonthlyDayBlock dayBox =  (MonthlyDayBlock)((ArrayList<DayBlock>)blocks).get(i);
 			dayBox.setSelected(tmpCal.get(Calendar.DAY_OF_YEAR) == curcal.get(Calendar.DAY_OF_YEAR));
 			dayBox.setEnabled(tmpCal.get(Calendar.MONTH) == curcal.get(Calendar.MONTH));
 			dayBox.update(as, tmpCal.getTime(), ca);
