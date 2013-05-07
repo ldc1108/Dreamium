@@ -4,8 +4,11 @@
  */
 package com.std.view.builder;
 
+import com.std.model.appointment.RefAppointment;
+import com.std.util.range.DateRange;
 import com.std.view.panel.CalendarPanel;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  *
@@ -17,7 +20,9 @@ public class PanelBuilder {
     public CalendarPanel getResult(){
         return _currentPanel;
     }
+    
     public void buildPart(Date d) {
-        
+        _currentPanel.buildPanel(d);
+        _currentPanel.update(new HashSet<RefAppointment>(), d, null);
     }
 }

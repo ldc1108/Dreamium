@@ -17,18 +17,8 @@ public class DailyPanelBuilder extends PanelBuilder {
     private DailyPanel _dailyPanel;
     
     public DailyPanelBuilder(Date d) {
-        _dailyPanel = new DailyPanel(d);
+        _dailyPanel = new DailyPanel();
         _currentPanel = _dailyPanel;
-    }
-    
-    @Override
-    public CalendarPanel getResult() {
-        return _currentPanel;
-    }
-
-    @Override
-    public void buildPart(Date d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

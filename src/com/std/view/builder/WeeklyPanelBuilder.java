@@ -17,17 +17,9 @@ public class WeeklyPanelBuilder extends PanelBuilder {
     public WeeklyPanel _weeklyPanel;
     
     public WeeklyPanelBuilder(Date d) {
-        _weeklyPanel = new WeeklyPanel(d);
+        _weeklyPanel = new WeeklyPanel();
         _currentPanel = _weeklyPanel;
     }
-    @Override
-    public CalendarPanel getResult() {
-        return _currentPanel;
-    }
-
-    @Override
-    public void buildPart(Date d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
 }
