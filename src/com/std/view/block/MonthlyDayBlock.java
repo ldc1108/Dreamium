@@ -56,7 +56,7 @@ public class MonthlyDayBlock  extends DayBlock {
 	 * @param listener is the listener for to the AppointmentReadViews
 	 */
 	
-	public MonthlyDayBlock(Date d) throws IOException {
+	public MonthlyDayBlock(Date d) {
 		super();
 		
 		day = d;

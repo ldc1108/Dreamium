@@ -42,7 +42,6 @@ public class DailyPanel  extends CalendarPanel  {
 	
 //	private WeeklyDayBlock block;
 	
-	private Hashtable<Integer, JLabel> daysOfWeek;
 	
 	/**
 	 * This is the constructor of the class it creates all of 
@@ -55,51 +54,25 @@ public class DailyPanel  extends CalendarPanel  {
 	
 	public DailyPanel(Date date) {
 		super();
-		
-		daysOfWeek = new Hashtable<Integer,JLabel>();
-		
-		JPanel daysPanel = new JPanel();
-		daysPanel.setOpaque(false);
-		daysPanel.setLayout(new GridLayout(1, 7));
-		
-		Calendar curcal = Calendar.getInstance();
-		curcal.setTime(date);
-		
-		Calendar tmpCal = Calendar.getInstance();
-		WeekRange week = new WeekRange();
-		tmpCal.setTime(week.getStartDate());
-		while(tmpCal.getTime().before(week.getEndDate())) {
-			JLabel dayText = new JLabel(tmpCal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()));
-			dayText.setFont(dayText.getFont().deriveFont(13f).deriveFont(Font.BOLD));
-			dayText.setOpaque(false);
-			dayText.setHorizontalAlignment(SwingConstants.CENTER);
-			daysPanel.add(dayText);
-			daysOfWeek.put(tmpCal.get(Calendar.DAY_OF_WEEK), dayText);
-			tmpCal.add(Calendar.DATE, 1);
-		}
-		
-		JPanel content = new JPanel();
-		content.setOpaque(false);
-		content.setLayout(new GridLayout(0, 1));
-                
-                blocks = new ArrayList<DayBlock>();
 
-		WeeklyDayBlock block = new WeeklyDayBlock(tmpCal.getTime());
-		
-                ((ArrayList<DayBlock>)blocks).add(block);
+		_content.setLayout(new GridLayout(0, 1));
                 
-                content.add(block);
-		block.setSelected(true);
-		block.setEnabled(false);
-		tmpCal.add(Calendar.DATE, 1);
-		
-		setLayout(new BorderLayout());
-		setOpaque(false);
-		add(daysPanel, BorderLayout.NORTH);
-		add(content, BorderLayout.CENTER);
-		
+                setUp();
+                
 		update(new HashSet<RefAppointment>(), date, null);
 	}
+        
+        private void setUp() { 
+            WeeklyDayBlock block = new WeeklyDayBlock(_calendar.getTime());
+		
+            _blocks.add(block);
+
+            _content.add(block);
+            block.setSelected(true);
+            block.setEnabled(false);
+            
+            _calendar.add(Calendar.DATE, 1);
+        }
 	
 	/**
 	 * This method updates the week by updating all of it's weekDayBlocks
@@ -113,10 +86,11 @@ public class DailyPanel  extends CalendarPanel  {
 		Calendar curcal = Calendar.getInstance();
 		curcal.setTime(selectedDate);
 		
-		for(int key : daysOfWeek.keySet())
-			daysOfWeek.get(key).setEnabled(curcal.get(Calendar.DAY_OF_WEEK) == key);
+		for(int key : _daysOfWeek.keySet()) {
+			_daysOfWeek.get(key).setEnabled(curcal.get(Calendar.DAY_OF_WEEK) == key);
+                }
 		
-		((WeeklyDayBlock)((ArrayList<DayBlock>)blocks).get(0)).update(refSet, curcal.getTime(), selectedAppointment);
+		((WeeklyDayBlock)_blocks.get(0)).update(refSet, curcal.getTime(), selectedAppointment);
 	}
 	
 	/**

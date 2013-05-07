@@ -13,12 +13,12 @@ import java.util.Date;
  *
  * @author Isioma
  */
-public class MonthlyBuilder extends PanelBuilder {
+public class MonthlyPanelBuilder extends PanelBuilder {
 
     private MonthlyPanel _monthlyPanel;
     
-    public MonthlyBuilder(Date d) throws IOException {
-        _monthlyPanel =new MonthlyPanel(d);
+    public MonthlyPanelBuilder(Date d) throws IOException {
+        _monthlyPanel = new MonthlyPanel(d);
         _currentPanel = _monthlyPanel;
     }
     

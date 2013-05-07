@@ -46,59 +46,37 @@ public class MonthlyPanel extends CalendarPanel {
 	 * This is the constructor it initializes all the variables needed and then
 	 * updates the view to display the appointment set sent as an argument.
 	 */
-	public MonthlyPanel(Date date) throws IOException {
+	public MonthlyPanel(Date date)  {
 		super();
-		
-		blocks = new ArrayList<DayBlock>();
-		
-		JPanel daysPanel = new JPanel();
-		daysPanel.setOpaque(false);
-		daysPanel.setLayout(new GridLayout(1, 7));
-		
-		Calendar tmpCal = Calendar.getInstance();
-		WeekRange week = new WeekRange();
-		tmpCal.setTime(week.getStartDate());
-		while(tmpCal.getTime().before(week.getEndDate())) {
-			JLabel dayText = new JLabel(tmpCal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()));
-			dayText.setFont(dayText.getFont().deriveFont(13f).deriveFont(Font.BOLD));
-			dayText.setOpaque(false);
-			dayText.setHorizontalAlignment(SwingConstants.CENTER);
-			daysPanel.add(dayText);
-			tmpCal.add(Calendar.DATE, 1);
-		}
-		
-		JPanel content = new JPanel();
-		content.setOpaque(false);
-		content.setLayout(new GridLayout(0, 7));
-		
-		ButtonGroup group = new ButtonGroup();
-		
-		MonthRange gRange = new MonthRange(date);
-		tmpCal.setTime(gRange.getStartDate());
-		while(tmpCal.getTime().before(gRange.getEndDate())) {
-			MonthlyDayBlock dayBox = new MonthlyDayBlock(tmpCal.getTime());
-			((ArrayList<DayBlock>) blocks).add(dayBox);
-			
-                        content.add(dayBox);
-			group.add(dayBox);
-			tmpCal.add(Calendar.DATE, 1);
-		}
-		
-		setLayout(new BorderLayout());
-		setOpaque(false);
-		add(daysPanel, BorderLayout.NORTH);
-		add(content, BorderLayout.CENTER);
-		
+                
+                _content.setLayout(new GridLayout(0, 7));
+                
+		setUp(date);
+
 		update(new HashSet<RefAppointment>(), date, null);
 	}
+        
+        private void setUp(Date date)  {
+                MonthRange gRange = new MonthRange(date);
+		_calendar.setTime(gRange.getStartDate());
+		while(_calendar.getTime().before(gRange.getEndDate())) {
+			MonthlyDayBlock dayBox = new MonthlyDayBlock(_calendar.getTime());
+			_blocks.add(dayBox);
+			
+                        _content.add(dayBox);
+//			group.add(dayBox);
+			_calendar.add(Calendar.DATE, 1);
+		}
+        }
 
 	/**
 	 * 
 	 * @param dl is the dayListener to set to each MonthlyDayBlock
 	 */
 	public void addDayListener(ActionListener dl) {
-		for(DayBlock dayBox : blocks) // for each day in the month
+		for(DayBlock dayBox : _blocks) { // for each day in the month
 			dayBox.addActionListener(dl);
+                }
 	}
 
 	/**
@@ -124,11 +102,11 @@ public class MonthlyPanel extends CalendarPanel {
 		
 		Calendar tmpCal = Calendar.getInstance();
 		MonthRange gRange = new MonthRange(cd);
-		for(int i = 0; i < ((ArrayList<DayBlock>)blocks).size(); i++) { // for each day in the month
+		for(int i = 0; i < ((ArrayList<DayBlock>)_blocks).size(); i++) { // for each day in the month
 			tmpCal.setTime(gRange.getStartDate());
 			tmpCal.add(Calendar.DATE, i);
 			
-			MonthlyDayBlock dayBox =  (MonthlyDayBlock)((ArrayList<DayBlock>)blocks).get(i);
+			MonthlyDayBlock dayBox =  (MonthlyDayBlock)((ArrayList<DayBlock>)_blocks).get(i);
 			dayBox.setSelected(tmpCal.get(Calendar.DAY_OF_YEAR) == curcal.get(Calendar.DAY_OF_YEAR));
 			dayBox.setEnabled(tmpCal.get(Calendar.MONTH) == curcal.get(Calendar.MONTH));
 			dayBox.update(as, tmpCal.getTime(), ca);

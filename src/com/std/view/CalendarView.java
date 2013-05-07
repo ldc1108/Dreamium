@@ -27,6 +27,9 @@ import com.std.model.appointment.RefAppointment;
 import com.std.util.range.DayRange;
 import com.std.util.range.MonthRange;
 import com.std.util.range.WeekRange;
+import com.std.view.builder.DailyPanelBuilder;
+import com.std.view.builder.MonthlyPanelBuilder;
+import com.std.view.builder.WeeklyPanelBuilder;
 import com.std.view.panel.AppointmentPanel;
 import com.std.view.panel.DailyPanel;
 import com.std.view.panel.MonthlyPanel;
@@ -70,11 +73,15 @@ public class CalendarView extends JFrame implements Observer {
 	private MonthlyPanel monthlyView;
 	private WeeklyPanel weeklyView;
 	private DailyPanel dailyView;
+        
+        private MonthlyPanelBuilder _monthlyBuilder;
+        private WeeklyPanelBuilder _weeklyBuilder;
+        private DailyPanelBuilder _dailyBuilder;
 	
 	private AppointmentPanel appointmentView;
 	
 	/**
-	 * This allows elements of the view and contorller 
+	 * This allows elements of the view and controller 
 	 * figure out what view is currently selected
 	 * 
 	 * @return returns a Tabbed state of the currently selected view
@@ -332,7 +339,6 @@ public class CalendarView extends JFrame implements Observer {
 	 * starts the JFrame
 	 * 
 	 */
-	
 	public CalendarView() throws IOException {
 		super();
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -341,9 +347,22 @@ public class CalendarView extends JFrame implements Observer {
 		this.setJMenuBar(calMenu);
 		
 		Date date = new Date();
-		monthlyView = new MonthlyPanel(date);
-		weeklyView = new WeeklyPanel(date);
-		dailyView = new DailyPanel(date);
+
+		
+//		monthlyView = new MonthlyPanel(date);
+//		weeklyView = new WeeklyPanel(date);
+//		dailyView = new DailyPanel(date);
+                
+                /** Start Builder New Code **/
+                _monthlyBuilder = new MonthlyPanelBuilder(date);
+                _dailyBuilder = new DailyPanelBuilder(date);
+                _weeklyBuilder = new WeeklyPanelBuilder(date);
+                
+                monthlyView = (MonthlyPanel) _monthlyBuilder.getResult();
+                weeklyView = (WeeklyPanel) _weeklyBuilder.getResult();
+                dailyView = (DailyPanel) _dailyBuilder.getResult();
+                /** End Builder New Code **/
+
 		
 		appointmentView = new AppointmentPanel();
 		
@@ -427,5 +446,4 @@ public class CalendarView extends JFrame implements Observer {
 		//prevButton.setPreferredSize(new Dimension(100, 0));
 		return prevButton;
 	}
-	
 }

@@ -12,12 +12,11 @@ import java.util.Date;
  *
  * @author Isioma
  */
-public class DailyBuilder extends PanelBuilder {
-
+public class DailyPanelBuilder extends PanelBuilder {
     
     private DailyPanel _dailyPanel;
     
-    public DailyBuilder(Date d) {
+    public DailyPanelBuilder(Date d) {
         _dailyPanel = new DailyPanel(d);
         _currentPanel = _dailyPanel;
     }
