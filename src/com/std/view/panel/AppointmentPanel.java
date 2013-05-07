@@ -138,12 +138,43 @@ public class AppointmentPanel extends JToggleButton {
 		descriptionField = createTextArea();
 		descriptionField.setBorder(null);
 		
-		editSingleAppt = new JButton("disjoin and edit");
-		editAllAppt = new JButton("edit");
-		removeSingleAppt = new JButton("remove");
-		removeAllAppt = new JButton("remove recurring");
+		initializeButtons();
+		JPanel northDataPanel = buildNorthDataPanel();
+		
+		JLabel label = new JLabel("selected appointment");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setBorder(new EmptyBorder(4, 0, 10, 0));
+		
+		JPanel north = new JPanel();
+		north.setOpaque(false);
+		north.setLayout(new BorderLayout());
+		north.add(label, BorderLayout.NORTH);
+		north.add(northDataPanel, BorderLayout.CENTER);
+		
+		JScrollPane scroll = buildScrollPane();
+		JPanel buttons = buildButtonsPanel();
 		
 
+		setSelected(true);
+		setEnabled(false);
+		setLayout(new BorderLayout());
+		add(north, BorderLayout.NORTH);
+		add(scroll, BorderLayout.CENTER);
+		add(buttons, BorderLayout.SOUTH);
+		
+		setAppointment(null);
+	}
+	
+	private JScrollPane buildScrollPane() {
+		JScrollPane scroll = new JScrollPane(descriptionField);
+		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setOpaque(false);
+		scroll.getViewport().setOpaque(false);
+		scroll.setBorder(new LineBorder(new Color(0x80FFFFFF, true), 1));
+		return scroll;
+	}
+	
+	private JPanel buildNorthDataPanel() {
 		JPanel northDataPanel = new JPanel();
 		northDataPanel.setOpaque(false);
 		GroupLayout groupLayout = new GroupLayout(northDataPanel);
@@ -161,23 +192,17 @@ public class AppointmentPanel extends JToggleButton {
 				{new JLabel("description"), new JLabel()}
 			});
 		northDataPanel.setLayout(groupLayout);
-		
-		JLabel label = new JLabel("selected appointment");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBorder(new EmptyBorder(4, 0, 10, 0));
-		
-		JPanel north = new JPanel();
-		north.setOpaque(false);
-		north.setLayout(new BorderLayout());
-		north.add(label, BorderLayout.NORTH);
-		north.add(northDataPanel, BorderLayout.CENTER);
-		
-		JScrollPane scroll = new JScrollPane(descriptionField);
-		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scroll.setOpaque(false);
-		scroll.getViewport().setOpaque(false);
-		scroll.setBorder(new LineBorder(new Color(0x80FFFFFF, true), 1));
-		
+		return northDataPanel;
+	}
+	
+	private void initializeButtons() {
+		editSingleAppt = new JButton("disjoin and edit");
+		editAllAppt = new JButton("edit");
+		removeSingleAppt = new JButton("remove");
+		removeAllAppt = new JButton("remove recurring");
+	}
+	
+	private JPanel buildButtonsPanel() {
 		JPanel buttons = new JPanel();
 		buttons.setOpaque(false);
 		buttons.setBorder(new EmptyBorder(10, 0, 4, 0));
@@ -186,15 +211,6 @@ public class AppointmentPanel extends JToggleButton {
 		buttons.add(editSingleAppt);
 		buttons.add(removeSingleAppt);
 		buttons.add(removeAllAppt);
-		
-
-		setSelected(true);
-		setEnabled(false);
-		setLayout(new BorderLayout());
-		add(north, BorderLayout.NORTH);
-		add(scroll, BorderLayout.CENTER);
-		add(buttons, BorderLayout.SOUTH);
-		
-		setAppointment(null);
+		return buttons;
 	}
 }
