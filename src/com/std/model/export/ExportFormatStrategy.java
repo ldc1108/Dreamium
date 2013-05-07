@@ -2,6 +2,19 @@ package com.std.model.export;
 
 import com.std.model.appointment.RefAppointment;
 
+/**
+ * 
+ * 
+ * @author Dreamium
+ */
 public interface ExportFormatStrategy {
-	public String format(RefAppointment appointment);
+	
+	/**
+	 * 
+	 * 
+	 * @param appointment
+	 * @return
+	 */
+	public String format(java.util.Collection<RefAppointment> appts);
+	
 }

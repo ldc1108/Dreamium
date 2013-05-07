@@ -5,9 +5,10 @@ import com.std.model.appointment.RefAppointment;
 public class ICalFormatStrategy implements ExportFormatStrategy {
 
 	@Override
-	public String format(RefAppointment appointment) {
-		// TODO Auto-generated method stub
-		return null;
+	public String format(java.util.Collection<RefAppointment> appts) {
+		String outputString = "";
+		
+		return outputString;
 	}
 
 }
