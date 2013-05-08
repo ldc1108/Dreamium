@@ -513,9 +513,23 @@ public class CalendarModel extends Observable {
 		return apptSet;
 	}
 	
+	/**
+	 * Uses the given format strategy to output a formatted version of the
+	 * appointments to the specified file.
+	 * 
+	 * @param e ExportFormatStrategy to use in formatting the appointments
+	 * @param out File to which to output the formatted result
+	 */
 	public void export( ExportFormatStrategy e, File out ) {
 		String formatted = e.format(apptSet);
-		// write 'formatted' to a file
+		try {
+			java.io.FileWriter fwOut = new java.io.FileWriter( out.getAbsolutePath() );
+			java.io.BufferedWriter bwOut = new java.io.BufferedWriter( fwOut );
+			bwOut.write(formatted);
+			bwOut.close();
+		} catch ( IOException ioe ) {
+			System.out.println( ioe.getMessage() );
+		}
 	}
 
 	/**
