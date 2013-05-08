@@ -14,6 +14,7 @@ import com.std.controller.listener.DefaultWindowListener;
 import com.std.controller.listener.EditAppointmentActionListener;
 import com.std.controller.listener.EditRecurringAppointmentActionListener;
 import com.std.controller.listener.ExitApplicationActionListener;
+import com.std.controller.listener.ExportIcalActionListener;
 import com.std.controller.listener.NewAppointmentActionListener;
 import com.std.controller.listener.NewCalendarActionListener;
 import com.std.controller.listener.NextButtonActionListener;
@@ -95,6 +96,10 @@ public class CalendarController  {
 		// listens for when the menu item "Save As Calendar" is selected
 		SaveAsCalendarActionListener saveAsCalL = new SaveAsCalendarActionListener(this);
 		theView.addSaveAsCalendarActionListener(saveAsCalL);
+                
+                // listens for when the menu item "Export to ical" is selected
+                ExportIcalActionListener exportIcal = new ExportIcalActionListener(this);
+                theView.addExportIcalActionListener(exportIcal);
 
 		// listens for when the menu item "Exit" is selected
 		ExitApplicationActionListener exitAppL = new ExitApplicationActionListener(this);
@@ -239,6 +244,24 @@ public class CalendarController  {
 		}
 		return ret;
 	}
+        
+        public boolean exportIcal() {
+            FileDialog dialog = new FileDialog(theView, "Export to Ical");
+            dialog.setMode(FileDialog.SAVE);
+            dialog.setVisible(true);
+            
+            boolean ret = dialog.getFile() != null;
+            if (ret) {
+                String path = dialog.getDirectory() + dialog.getFile();
+                try {
+                    System.out.println("Export to ical called");
+                    // theModel.exportToIcal(new File(path));
+                } catch (Exception ex) {
+                    handleException(ex);
+                }
+            }
+            return ret;
+        }
 	
 	public boolean saveAs() {
 		FileDialog dialog = new FileDialog(theView, "Save As");

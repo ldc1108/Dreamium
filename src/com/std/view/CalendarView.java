@@ -191,6 +191,10 @@ public class CalendarView extends JFrame implements Observer {
 	public void addSaveAsCalendarActionListener(ActionListener listener) {
 		calMenu.getSaveAsCalendarMenuItem().addActionListener(listener);
 	}
+        
+        public void addExportIcalActionListener(ActionListener listener) {
+            calMenu.getExportAsIcalMenuItem().addActionListener(listener);
+        } 
 	
 	/**
 	 * This passes a mouse listener down to the different views

@@ -27,6 +27,7 @@ public class CalendarMenu extends JMenuBar {
 	private final JMenuItem openCalendar;
 	private final JMenuItem saveCalendar;
 	private final JMenuItem saveAsCalendar;
+        private final JMenuItem exportAsIcal;
 	private final JMenuItem exitApplication;
 	private final JMenuItem newAppointment;
 	private final JMenuItem editAppointment;
@@ -48,6 +49,10 @@ public class CalendarMenu extends JMenuBar {
 	public JMenuItem getSaveAsCalendarMenuItem() {
 		return saveAsCalendar;
 	}
+        
+        public JMenuItem getExportAsIcalMenuItem() {
+            return exportAsIcal;
+        }
 	public JMenuItem getExitApplicationMenuItem() {
 		return exitApplication;
 	}
@@ -102,6 +107,9 @@ public class CalendarMenu extends JMenuBar {
 		saveAsCalendar = new JMenuItem("Save As...");
 		fileMenu.add(saveAsCalendar);
 		
+                exportAsIcal = new JMenuItem("Export to Ical");
+                fileMenu.add(exportAsIcal);
+                
 		fileMenu.addSeparator();
 		
 		exitApplication = new JMenuItem("Exit");
