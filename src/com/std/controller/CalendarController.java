@@ -28,6 +28,7 @@ import com.std.controller.listener.SaveCalendarActionListener;
 import com.std.model.CalendarModel;
 import com.std.model.appointment.AppointmentTemplate;
 import com.std.model.appointment.RefAppointment;
+import com.std.model.export.ICalFormatStrategy;
 import com.std.view.CalendarView;
 
 /**
@@ -255,7 +256,7 @@ public class CalendarController  {
                 String path = dialog.getDirectory() + dialog.getFile();
                 try {
                     System.out.println("Export to ical called");
-                    // theModel.exportToIcal(new File(path));
+                    theModel.export(new ICalFormatStrategy(), new File(path));
                 } catch (Exception ex) {
                     handleException(ex);
                 }

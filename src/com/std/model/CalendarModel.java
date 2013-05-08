@@ -16,6 +16,7 @@ import java.util.Set;
 
 import com.std.model.appointment.AppointmentTemplate;
 import com.std.model.appointment.RefAppointment;
+import com.std.model.export.ExportFormatStrategy;
 import com.std.util.ObservableSet;
 
 /**
@@ -510,6 +511,11 @@ public class CalendarModel extends Observable {
 	 */
 	public Set<RefAppointment> getAppointmentSet() {
 		return apptSet;
+	}
+	
+	public void export( ExportFormatStrategy e, File out ) {
+		String formatted = e.format(apptSet);
+		// write 'formatted' to a file
 	}
 
 	/**
