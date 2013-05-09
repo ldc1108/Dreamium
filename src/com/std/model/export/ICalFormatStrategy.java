@@ -9,22 +9,6 @@ import com.std.model.appointment.RefAppointment;
 public class ICalFormatStrategy implements ExportFormatStrategy {
 
 	// we need summary, start date
-	/*
-	 * BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//hacksw/handcal//NONSGML v1.0//EN
-BEGIN:VEVENT
-UID:uid1@example.com
-DTSTAMP:19970714T170000Z
-ORGANIZER;CN=John Doe:MAILTO:john.doe@example.com
-DTSTART:19970714T170000Z
-DTEND:19970715T035959Z
-SUMMARY:Bastille Day Party
-END:VEVENT
-END:VCALENDAR
-RRULE:FREQ=YEARLY;INTERVAL=2;BYMONTH=1;BYDAY=SU;BYHOUR=8,9;BYMINUTE=30
-FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1
-	 */
 	@Override
 	public String format(java.util.Collection<RefAppointment> appts) {
 		String outputString = "BEGIN:VCALENDAR\n";
