@@ -393,7 +393,7 @@ public class CalendarView extends JFrame implements Observer {
 		setTitle("Untitled Calendar - DCal");
 		setBackground(Color.WHITE);
 		
-		this.setIconImage(ImageIO.read(new File("img/icon.png")));
+		//this.setIconImage(ImageIO.read(new File("img/icon.png")));
 		
 		pack();
 		setMinimumSize(getSize());
@@ -403,7 +403,7 @@ public class CalendarView extends JFrame implements Observer {
 		JPanel contentPane = new JPanel();
 		contentPane.setOpaque(false);
 		contentPane.setLayout(new BorderLayout());
-		contentPane.add(buildLogo(), BorderLayout.NORTH);
+		//contentPane.add(buildLogo(), BorderLayout.NORTH);
 		contentPane.add(buildCenterPanel(), BorderLayout.CENTER);
 		contentPane.add(appointmentView, BorderLayout.EAST);
 		return contentPane;
